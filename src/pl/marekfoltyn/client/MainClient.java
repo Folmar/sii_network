@@ -7,11 +7,14 @@ import java.net.Socket;
 
 public class MainClient {
     public static void main(String[] args) throws IOException {
-        Socket localhost = new Socket("localhost", 5555);
-        OutputStream outputStream = localhost.getOutputStream();
+        Socket socket = new Socket("localhost", 5555);
+        OutputStream outputStream = socket.getOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         dataOutputStream.writeBytes("Cześć, uczę się JAVY");
+        dataOutputStream.flush();
+        dataOutputStream.close();
         outputStream.close();
+        socket.close();
     }
 
     /**
