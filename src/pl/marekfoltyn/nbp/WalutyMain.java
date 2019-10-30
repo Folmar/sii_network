@@ -11,13 +11,13 @@ import java.net.URL;
 
 public class WalutyMain {
     public static void main(String[] args) throws IOException {
-        URL url = new URL("hhtp://api.nbp.pl/api/exchangerates/tables/A");
+        URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         InputStream inputStream = connection.getInputStream();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
         String readValue = new String(bufferedInputStream.readAllBytes());
         System.out.println(readValue);
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper(); //żeby było można korzystać z ObjectMapper należy pobrać biblioteki jackson (maven central w przeglądarce)
     }
 }
