@@ -19,7 +19,18 @@ public class WalutyMain {
         Rate rate = objectMapper.readValue(json, Rate.class);
         System.out.println();
 
-        changeToPLN(rate);
+        Rate rate1 = new Rate();
+        rate1.setCode("MVA");
+        rate1.setCurrency("Moja waluta");
+        rate1.setMid(new BigDecimal("33.33"));
+
+        Rate[] rates = {rate, rate1};
+
+        String s = objectMapper.writeValueAsString(rates);
+        System.out.println(s);
+
+
+//        changeToPLN(rate);
         //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
     }
 
@@ -34,8 +45,10 @@ public class WalutyMain {
     }
 
     private static void changeToPLN(Rate rate) {
-        BigDecimal PLNcalculate = BigDecimal.valueOf(1000);
-        BigDecimal PLN = rate.getMid().multiply(PLNcalculate);
-        System.out.println("100 zł kosztuje " + PLN + " " + rate.getCode());
+        BigDecimal PLNcalculate = new BigDecimal("100");
+        BigDecimal rateMid = new BigDecimal(String.valueOf(rate.getMid()));
+        //TODO - do poprawy implementacja
+//        BigDecimal PLN = PLNcalculate.divide(rateMid).ROUND_HALF_EVEN;
+//        System.out.println("100 zł kosztuje " + PLN + " " + rate.getCode());
     }
 }
