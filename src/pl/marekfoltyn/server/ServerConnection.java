@@ -16,14 +16,15 @@ public class ServerConnection implements Runnable {
         InputStream inputStream = null;
         try {
             inputStream = acceptedSocket.getInputStream();
-            OutputStream outputStream = acceptedSocket.getOutputStream();
+//            OutputStream outputStream = acceptedSocket.getOutputStream();
             final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);
             }
-            inputStream.close();
-            outputStream.close();
+//            bufferedReader.close();
+//            inputStream.close();
+//            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
