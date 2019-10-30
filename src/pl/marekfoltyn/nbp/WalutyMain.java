@@ -11,7 +11,14 @@ import java.net.URL;
 
 public class WalutyMain {
     public static void main(String[] args) throws IOException {
+        String json = callJsonWebService();
 
+//        metodaZebyNieStracicKodu();
+//        changeToPLN(rate);
+        //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
+    }
+
+    private static void metodaZebyNieStracicKodu() throws com.fasterxml.jackson.core.JsonProcessingException {
         String json = "{\"currency\":\"bat (Tajlandia)\",\"code\":\"THB\",\"mid\":0.1270}";
 //        callWebService();
 
@@ -28,10 +35,6 @@ public class WalutyMain {
 
         String s = objectMapper.writeValueAsString(rates);
         System.out.println(s);
-
-
-//        changeToPLN(rate);
-        //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
     }
 
 
@@ -42,6 +45,15 @@ public class WalutyMain {
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
         String readValue = new String(bufferedInputStream.readAllBytes());
         System.out.println(readValue);
+    }
+
+    private static String callJsonWebService() throws IOException {
+        URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        InputStream inputStream = connection.getInputStream();
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+        String readValue = new String(bufferedInputStream.readAllBytes());
+        return readValue;
     }
 
     private static void changeToPLN(Rate rate) {
