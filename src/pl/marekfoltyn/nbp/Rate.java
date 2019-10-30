@@ -2,6 +2,8 @@ package pl.marekfoltyn.nbp;
 
 import java.math.BigDecimal;
 
+//klasa POJO - nie ma innych metod poza getterami i setterami
+
 public class Rate {
     private String currency;
     private String code;
