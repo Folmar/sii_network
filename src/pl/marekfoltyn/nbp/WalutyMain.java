@@ -46,7 +46,7 @@ public class WalutyMain {
     }
 
     //dodać parametr na tabelę A,B,C
-    //Stworzyć tabelę walut które nie będą się powtarzać
+    //Stworzyć tabelę walut które nie będą się powtarzać - wyciągnąć unikalne wartości z 3 tabel A, B, C
     private static void callWebService() throws IOException {
         URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
