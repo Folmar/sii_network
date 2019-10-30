@@ -34,8 +34,8 @@ public class WalutyMain {
     }
 
     private static void changeToPLN(Rate rate) {
-        BigDecimal PLN100 = BigDecimal.valueOf(1000);
-        BigDecimal PLN = rate.getMid().multiply(PLN100);
+        BigDecimal PLNcalculate = BigDecimal.valueOf(1000);
+        BigDecimal PLN = rate.getMid().multiply(PLNcalculate);
         System.out.println("100 zł kosztuje " + PLN + " " + rate.getCode());
     }
 }
