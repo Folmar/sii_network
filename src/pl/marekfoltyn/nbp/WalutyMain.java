@@ -12,6 +12,15 @@ import java.net.URL;
 public class WalutyMain {
     public static void main(String[] args) throws IOException {
         String json = callJsonWebService();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Table[] tables = objectMapper.readValue(json, Table[].class);
+        for (Table t : tables) {
+            for (Rate rate : t.getRates()) {
+                System.out.println(rate.getCurrency() + " " + rate.getMid());
+            }
+
+        }
 
 //        metodaZebyNieStracicKodu();
 //        changeToPLN(rate);
@@ -37,7 +46,8 @@ public class WalutyMain {
         System.out.println(s);
     }
 
-
+    //dodać parametr na tabelę A,B,C
+    //Stworzyć tabelę walut które nie będą się powtarzać
     private static void callWebService() throws IOException {
         URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
