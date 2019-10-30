@@ -6,8 +6,7 @@ public class Table {
     private String effectiveDate;
     private Rate[] rates;
 
-    public Table(String table) {
-        this.table = table;
+    public Table() {
     }
 
     public String getTable() {

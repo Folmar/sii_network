@@ -19,7 +19,6 @@ public class WalutyMain {
             for (Rate rate : t.getRates()) {
                 System.out.println(rate.getCurrency() + " " + rate.getMid());
             }
-
         }
 
 //        metodaZebyNieStracicKodu();
