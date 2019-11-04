@@ -12,20 +12,27 @@ import java.net.URL;
 
 public class WalutyMain {
     public static void main(String[] args) throws IOException {
-//        tabliceTablic();
+//        String[] tables = {"A", "B", "C"};
+        String[] tables = {"A", "B"};
+        for (int i = 0; i <= tables.length; i++) {
+            System.out.println("Tablica: " + tables[i]);
+            System.out.println("=====================");
+            tabliceTablic(tables[i]);
+            System.out.println("=====================");
+        }
 //        metodaZebyNieStracicKodu();
 
-        String json = "{\"currency\":\"bat (Tajlandia)\",\"code\":\"THB\",\"mid\":0.1270}";
+//        String json = "{\"currency\":\"bat (Tajlandia)\",\"code\":\"THB\",\"mid\":0.1270}";
 //        callWebService();
 
-        ObjectMapper objectMapper = new ObjectMapper(); //żeby było można korzystać z ObjectMapper należy pobrać biblioteki jackson (maven central w przeglądarce)
-        Rate rate = objectMapper.readValue(json, Rate.class);
-        changeToPLN(rate);
+//        ObjectMapper objectMapper = new ObjectMapper(); //żeby było można korzystać z ObjectMapper należy pobrać biblioteki jackson (maven central w przeglądarce)
+//        Rate rate = objectMapper.readValue(json, Rate.class);
+//        changeToPLN(rate);
         //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
     }
 
-    private static void tabliceTablic() throws IOException {
-        String json = callJsonWebService();
+    private static void tabliceTablic(String table) throws IOException {
+        String json = callJsonWebService(table);
         ObjectMapper objectMapper = new ObjectMapper();
 
         Table[] tables = objectMapper.readValue(json, Table[].class);
@@ -36,6 +43,20 @@ public class WalutyMain {
         }
     }
 
+    /**
+     * Zakomentowana pierwsza implementacja tablicyTablic żeby nie stracić kodu
+     */
+/*    private static void tabliceTablic(String table) throws IOException {
+        String json = callJsonWebService(table);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Table[] tables = objectMapper.readValue(json, Table[].class);
+        for (Table t : tables) {
+            for (Rate rate : t.getRates()) {
+                System.out.println(rate.getCurrency() + " " + rate.getMid());
+            }
+        }
+    }*/
     private static void metodaZebyNieStracicKodu() throws com.fasterxml.jackson.core.JsonProcessingException {
         String json = "{\"currency\":\"bat (Tajlandia)\",\"code\":\"THB\",\"mid\":0.1270}";
 //        callWebService();
@@ -66,8 +87,8 @@ public class WalutyMain {
         System.out.println(readValue);
     }
 
-    private static String callJsonWebService() throws IOException {
-        URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/A");
+    private static String callJsonWebService(String table) throws IOException {
+        URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/" + table);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         InputStream inputStream = connection.getInputStream();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
