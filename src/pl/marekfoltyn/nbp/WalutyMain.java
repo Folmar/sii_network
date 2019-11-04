@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WalutyMain {
     public static void main(String[] args) throws IOException {
@@ -31,16 +33,19 @@ public class WalutyMain {
         //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
     }
 
-    private static void tabliceTablic(String table) throws IOException {
+    private static List<String> tabliceTablic(String table) throws IOException {
         String json = callJsonWebService(table);
         ObjectMapper objectMapper = new ObjectMapper();
+        List<String> rates = new ArrayList<>();
 
         Table[] tables = objectMapper.readValue(json, Table[].class);
         for (Table t : tables) {
             for (Rate rate : t.getRates()) {
                 System.out.println(rate.getCurrency() + " " + rate.getMid());
+                rates.add(rate.getCurrency() + " " + rate.getMid());
             }
         }
+        return rates;
     }
 
     /**
