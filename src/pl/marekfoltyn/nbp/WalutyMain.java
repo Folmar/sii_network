@@ -11,6 +11,19 @@ import java.net.URL;
 
 public class WalutyMain {
     public static void main(String[] args) throws IOException {
+//        tabliceTablic();
+//        metodaZebyNieStracicKodu();
+
+        String json = "{\"currency\":\"bat (Tajlandia)\",\"code\":\"THB\",\"mid\":0.1270}";
+//        callWebService();
+
+        ObjectMapper objectMapper = new ObjectMapper(); //żeby było można korzystać z ObjectMapper należy pobrać biblioteki jackson (maven central w przeglądarce)
+        Rate rate = objectMapper.readValue(json, Rate.class);
+        changeToPLN(rate);
+        //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
+    }
+
+    private static void tabliceTablic() throws IOException {
         String json = callJsonWebService();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -20,10 +33,6 @@ public class WalutyMain {
                 System.out.println(rate.getCurrency() + " " + rate.getMid());
             }
         }
-
-//        metodaZebyNieStracicKodu();
-//        changeToPLN(rate);
-        //dodanie scratch file ctrl + alt + shift + insert - zaznaczyć wynik w konsoli i zostanie utworzony plik
     }
 
     private static void metodaZebyNieStracicKodu() throws com.fasterxml.jackson.core.JsonProcessingException {
@@ -67,9 +76,9 @@ public class WalutyMain {
 
     private static void changeToPLN(Rate rate) {
         BigDecimal PLNcalculate = new BigDecimal("100");
-        BigDecimal rateMid = new BigDecimal(String.valueOf(rate.getMid()));
+        BigDecimal rateMid = rate.getMid();
         //TODO - do poprawy implementacja
-//        BigDecimal PLN = PLNcalculate.divide(rateMid).ROUND_HALF_EVEN;
-//        System.out.println("100 zł kosztuje " + PLN + " " + rate.getCode());
+        BigDecimal PLN = rateMid.divide(PLNcalculate);
+        System.out.println("100 zł kosztuje " + PLN + " " + rate.getCode());
     }
 }
