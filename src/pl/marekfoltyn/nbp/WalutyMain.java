@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -75,10 +76,7 @@ public class WalutyMain {
     }
 
     private static void changeToPLN(Rate rate) {
-        BigDecimal PLNcalculate = new BigDecimal("100");
-        BigDecimal rateMid = rate.getMid();
-        //TODO - do poprawy implementacja
-        BigDecimal PLN = rateMid.divide(PLNcalculate);
-        System.out.println("100 zł kosztuje " + PLN + " " + rate.getCode());
+        BigDecimal result = new BigDecimal("100").divide(rate.getMid(), 2, RoundingMode.HALF_EVEN);
+        System.out.println("100 zł kosztuje " + result + " " + rate.getCode());
     }
 }
